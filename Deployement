@@ -1,0 +1,24 @@
+Deployement
+-----------
+
+Suppose you have deployed your application using a deployment controller. Assume the initial number of replicas is one. 
+Write the steps needed to update a container's image using deployment, making sure that there is zero downtime.
+======================================================================================================================
+
+Scale the replica based on the required load traffic load, say 3 in our case.
+After scaling up the replica from 1 to 3.So to achieve zero down time, we can go for "Rolling update statergy".
+
+In this statergy,It can be made sure that there will always be required instances to handle traffic.
+Change the image version name in the deployment file.
+
+To achieve minimum instance running, we can configure how to update the image in the deployment yaml file.
+
+In rolling update configuration in yaml file ,configure 3 things, 
+———>how much time we have to wait between batches  (minimum seconds ready) =20
+———>maximum surge =1
+———>maximum unavailable =1
+So at every 20 seconds a batch is updated and the pods are always running.
+
+We should be using the load balancer to connect to the end points so that customer can access a common ip and connect to the pods (services running).
+Deployment controller takes care of the rolling update in batches at specified time interval,
+so that zero down Time is maintained when the deployment s applied using kebectl apply .
