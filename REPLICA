@@ -1,0 +1,14 @@
+Write a common use-case, where you will use a daemon set instead of replica set.
+
+
+ReplicasSet will ensure that the number of pods (defined in our config file) is always running in our cluster. 
+Does not matter in which worker node they are running.
+
+Whereas in the case of DaemonSet it will ensure that one copy of pod defined in our configuration will always be available on every worker node.
+If a new node is added in our cluster then DaemonSet will automatically allocate pod on that node. Similarly, 
+if a node is deleted then the pod running on the node is also destroyed, it will not reschedule the pod on different nodes as in case of ReplicaSet.
+
+Application
+—————
+So,Use a DaemonSet instead of a ReplicaSet when you need to run a pod on all the nodes 
+eg: "collecting logs on all the worker nodes"(machine server running) which is the common use case for daemon set over replica set
