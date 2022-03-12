@@ -1,0 +1,26 @@
+Service
+-------
+
+You have deployed an application, that is listening at port 8000. 
+You used a replica-set to deploy it and created a NodePort service to make it accessible.
+But when you test it, somehow the application is not reachable at the port. 
+Write down your approach and sequentially all the steps that you will take to find out the issue.
+=========================================================================================================================================
+
+Node port service is an abstract way for accessing the application running at pods from the external network.
+since the pod ip can change at any moment and cannot be provided to external network user.
+
+Check whether the pods are active and running .if there is a problem ,check why replica set is running.
+If they are fine then Check whether the service is running.
+
+If pods and service is running properly then 
+Check using curl whether the application is running locally in cli.(since it can be browser issue also).
+
+At current we are exposed our application via node port listening port 8000.
+So,check what port exposed is 8000.
+Then matching should be checked whether the current port 8000 is matched correctly with port provided to external network or check for the port range.
+The node port service is connected to the pods(end points) using the selector ,check whether the selector is given correctly in pod and service( type:node port) .
+
+Check for target port and node port in service file.
+Check whether node id used is correct.
+If all theses things are correct check whether the application is running locally(it can also be an issue on application side)
